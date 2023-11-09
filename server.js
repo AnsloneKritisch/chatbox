@@ -20,7 +20,7 @@ app.post('/', (req, res) => {
 
     var name = req.body.name;
 
-    if (name === "cushi") {
+    if (name === "me") {
         res.sendFile(__dirname + '/chat.html')
 
     }
