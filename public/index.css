@@ -118,7 +118,10 @@
     color: black;
   }
   
-  
-  
-  
+
+  .typing {
+    font-style: italic;
+    color: #888; /* Choose a color that suits your design */
+    margin-top: 5px;
+  }
   

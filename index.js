@@ -18,17 +18,16 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
 
-    var name = req.body.name ;
+    var name = req.body.name;
 
-    if (name === "nidhu") 
-    {
+    if (name === "cushi") {
         res.sendFile(__dirname + '/chat.html')
-        
+
     }
-    else{
+    else {
         res.sendFile(__dirname + '/error.html')
     }
-    
+
 })
 
 app.get('/chat', (req, res) => {
@@ -36,13 +35,21 @@ app.get('/chat', (req, res) => {
 })
 
 // Socket 
+
 const io = require('socket.io')(http)
 
 io.on('connection', (socket) => {
-    console.log('Connected...')
+    console.log('User connected:', socket.id);
+
+    socket.on('typing', (data) => {
+        socket.broadcast.emit('typing', data);
+    });
+
     socket.on('message', (msg) => {
+        socket.broadcast.emit('message', msg);
+    });
 
-        socket.broadcast.emit('message', msg)
-    })
-
-})
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
+    });
+});
